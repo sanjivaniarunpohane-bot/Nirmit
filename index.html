@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101027">
+<title>Study AI | By Mr. Nirmit Pohane</title>
+<style>
+:root{--bg:#0b0b1b;--panel:#15152d;--panel2:#1c1c39;--text:#f5f4ff;--muted:#aaa9c5;--purple:#8b5cf6;--cyan:#38d9e6;--line:#303052;--green:#48d597}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#29204f 0,transparent 34%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}
+.app{display:flex;min-height:100vh}.sidebar{width:245px;background:#101025;border-right:1px solid var(--line);padding:24px 16px;position:fixed;inset:0 auto 0 0;z-index:5}
+.brand{display:flex;gap:11px;align-items:center;margin:0 8px 30px}.logo{width:43px;height:43px;border-radius:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));display:grid;place-items:center;font-size:23px;font-weight:900;color:white;box-shadow:0 8px 28px #7650dc55}
+.brand strong{display:block;font-size:17px}.brand small{color:var(--muted);font-size:11px}
+.nav-label{color:#777694;font-size:10px;letter-spacing:1.5px;font-weight:800;margin:22px 12px 9px}
+.nav button{width:100%;text-align:left;color:var(--muted);background:transparent;padding:12px;border-radius:12px;margin:3px 0;display:flex;gap:12px;align-items:center}
+.nav button:hover,.nav button.active{background:#28234b;color:white}.nav button.active{box-shadow:inset 3px 0 var(--cyan)}
+.side-foot{position:absolute;bottom:20px;left:18px;right:18px;background:var(--panel);border:1px solid var(--line);padding:13px;border-radius:14px;font-size:12px;color:var(--muted)}
+.main{margin-left:245px;width:calc(100% - 245px);padding:26px 34px 60px;max-width:1500px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:28px}.eyebrow{color:var(--cyan);font-size:11px;letter-spacing:1.8px;font-weight:800}.topbar h1{font-size:25px;margin:5px 0}.profile{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);padding:8px 13px;border-radius:30px}.avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#8b5cf6,#20bfd0);font-weight:800}
+.page{display:none}.page.active{display:block}.hero{padding:28px;border-radius:22px;background:linear-gradient(115deg,#30205e,#172c4b 72%,#123b49);border:1px solid #55418a;position:relative;overflow:hidden}.hero:after{content:"✦";position:absolute;right:8%;top:-38px;font-size:190px;color:#ffffff0d}.hero h2{font-size:clamp(24px,4vw,38px);margin:8px 0}.hero p{color:#d2cdeb;max-width:610px;line-height:1.6}.primary,.secondary{padding:11px 17px;border-radius:11px;font-weight:750}.primary{background:linear-gradient(100deg,var(--purple),#5479e9);color:white}.secondary{background:#292747;color:white;border:1px solid #48456b}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0}.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:17px;padding:18px}.stat small,.muted{color:var(--muted)}.stat strong{display:block;font-size:26px;margin:7px 0}.section-head{display:flex;justify-content:space-between;align-items:center;margin:27px 0 13px}.section-head h3{margin:0;font-size:18px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.subject{min-height:135px;cursor:pointer;transition:.2s}.subject:hover{transform:translateY(-3px);border-color:var(--purple)}.subject .emoji{font-size:27px}.subject h3{margin:12px 0 5px}.subject p{color:var(--muted);font-size:12px;margin:0}
+.chat-layout{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:16px}.chatbox{height: min(65vh,650px);min-height:430px;display:flex;flex-direction:column;padding:0;overflow:hidden}.chat-head{padding:17px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}.bot-icon{width:38px;height:38px;border-radius:13px;background:linear-gradient(135deg,var(--purple),var(--cyan));display:grid;place-items:center;font-size:21px}.messages{padding:18px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:13px}.msg{max-width:85%;padding:12px 14px;border-radius:15px;line-height:1.55;font-size:14px;white-space:pre-wrap}.bot{background:#252545;align-self:flex-start;border-bottom-left-radius:4px}.user{background:linear-gradient(120deg,#6542bc,#3d69bc);align-self:flex-end;border-bottom-right-radius:4px}.chat-compose{padding:13px;border-top:1px solid var(--line);display:flex;gap:9px}.chat-compose textarea{resize:none;min-height:44px;max-height:110px;flex:1;background:#0e0e21;color:white;border:1px solid var(--line);border-radius:12px;padding:12px;outline:none}.chat-compose textarea:focus,input:focus{border-color:var(--purple)}.quick button{display:block;width:100%;text-align:left;margin:8px 0;background:#22223e;color:#ddd;padding:10px;border-radius:10px;font-size:12px}
+input,select{background:#101027;color:white;border:1px solid var(--line);border-radius:10px;padding:11px;outline:none;width:100%}
+.video-card{overflow:hidden;padding:0}.video-thumb{height:135px;background:linear-gradient(135deg,#34245f,#125064);display:grid;place-items:center;font-size:44px}.video-card .inside{padding:15px}.video-card p{font-size:12px;color:var(--muted)}.video-card a{color:#a99aff;text-decoration:none;font-size:13px;font-weight:700}
+.progress{height:8px;background:#30304c;border-radius:10px;overflow:hidden;margin:10px 0}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan));width:0}
+.quiz-option{display:block;width:100%;text-align:left;margin:9px 0;padding:13px;background:#22223e;border:1px solid var(--line);border-radius:11px;color:white}.quiz-option:hover{border-color:var(--cyan)}
+.note{border-left:3px solid var(--cyan);padding:10px 13px;background:#17172e;border-radius:8px;color:#c9c8df;font-size:13px;line-height:1.6}
+.mobile-menu{display:none}.toast{position:fixed;bottom:20px;right:20px;background:#242344;border:1px solid var(--line);padding:12px 17px;border-radius:12px;display:none;z-index:10}
+@media(max-width:900px){.sidebar{width:70px;padding:18px 9px}.brand{margin:0 4px 25px}.brand div:last-child,.nav-label,.nav button span,.side-foot{display:none}.nav button{justify-content:center;font-size:20px;padding:13px}.main{margin-left:70px;width:calc(100% - 70px);padding:22px 18px}.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.main{padding:16px 12px}.topbar h1{font-size:20px}.profile .pname{display:none}.chat-layout{grid-template-columns:1fr}.quick{display:none}.grid{grid-template-columns:1fr 1fr}.stat{padding:13px}.hero{padding:21px}.hero p{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="logo">S</div><div><strong>Study AI</strong><small>BY MR. NIRMIT POHANE</small></div></div>
+ <div class="nav-label">LEARN</div>
+ <nav class="nav">
+  <button class="active" data-page="home"><span>⌂</span><span>Dashboard</span></button>
+  <button data-page="tutor"><span>✦</span><span>AI Tutor</span></button>
+  <button data-page="subjects"><span>▤</span><span>Subjects</span></button>
+  <button data-page="videos"><span>▶</span><span>Video Lessons</span></button>
+  <button data-page="notes"><span>▧</span><span>Smart Notes</span></button>
+  <button data-page="quiz"><span>◈</span><span>Practice Quiz</span></button>
+ </nav>
+ <div class="nav-label">MY SPACE</div>
+ <nav class="nav"><button data-page="progress"><span>▥</span><span>My Progress</span></button><button data-page="profile"><span>◉</span><span>Profile</span></button></nav>
+ <div class="side-foot">✨ Keep learning every day.<br><b style="color:white">Small steps. Big results.</b></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow">YOUR PERSONAL LEARNING SPACE</div><h1 id="pageTitle">Welcome back, Learner! 👋</h1></div><div class="profile"><div class="avatar">N</div><span class="pname" id="profileName">Student</span></div></header>
+
+<section class="page active" id="home">
+ <div class="hero"><div class="eyebrow">LEARN SMARTER WITH STUDY AI</div><h2>Your AI-powered study partner.</h2><p>Understand difficult concepts, practise questions, explore lessons and build confidence — one topic at a time.</p><button class="primary" onclick="showPage('tutor')">Start learning&nbsp; →</button></div>
+ <div class="stats">
+  <div class="stat"><small>📚 Subjects</small><strong>7+</strong><small>Ready to explore</small></div>
+  <div class="stat"><small>🧠 Quiz attempts</small><strong id="quizCount">0</strong><small>Your practice sessions</small></div>
+  <div class="stat"><small>⭐ Learning points</small><strong id="points">0</strong><small>Earned through practice</small></div>
+  <div class="stat"><small>🔥 Daily goal</small><strong>15 min</strong><small>Make learning a habit</small></div>
+ </div>
+ <div class="section-head"><h3>Explore your subjects</h3><button class="secondary" onclick="showPage('subjects')">View all</button></div>
+ <div class="grid" id="homeSubjects"></div>
+ <div class="section-head"><h3>Continue learning</h3></div>
+ <div class="card"><b>🤖 Ask your AI Tutor</b><p class="muted">Get a concept explained in simple language, with examples and a quick recap.</p><button class="primary" onclick="showPage('tutor')">Open AI Tutor</button></div>
+</section>
+
+<section class="page" id="tutor">
+ <div class="section-head"><div><h3>🤖 Your AI Tutor</h3><p class="muted">Ask any school subject question.</p></div><span class="muted">Study mode</span></div>
+ <div class="chat-layout">
+  <div class="card chatbox"><div class="chat-head"><div class="bot-icon">✦</div><div><b>Study AI Tutor</b><div class="muted" style="font-size:11px">Learning assistant · Demo mode</div></div></div>
+   <div class="messages" id="messages"><div class="msg bot">Hello! Welcome to Study AI. 👋<br><br>I'm your study assistant. Ask me a question, or choose a topic to get started. I can demonstrate simple explanations, examples and revision tips.</div></div>
+   <div class="chat-compose"><textarea id="question" placeholder="Ask your question here..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendQuestion()}"></textarea><button class="primary" onclick="sendQuestion()">Send ➤</button></div>
+  </div>
+  <div class="card quick"><b>Try asking</b><button onclick="ask('Explain photosynthesis in simple words with an example.')">🌱 Explain photosynthesis</button><button onclick="ask('What is the Pythagoras theorem? Explain with an example.')">📐 Pythagoras theorem</button><button onclick="ask('Explain Newton’s three laws of motion.')">🚀 Newton’s laws</button><button onclick="ask('Explain the difference between concave and convex lenses.')">🔎 Types of lenses</button><div class="note" style="margin-top:16px">Demo version: answers use built-in sample explanations. Connect a secure AI backend for live AI responses. Always verify important textbook answers.</div></div>
+ </div>
+</section>
+
+<section class="page" id="subjects"><div class="section-head"><div><h3>All Subjects</h3><p class="muted">Choose a subject to explore lessons and practice.</p></div></div><div class="grid" id="allSubjects"></div></section>
+
+<section class="page" id="videos"><div class="section-head"><div><h3>🎥 Video Learning Library</h3><p class="muted">Find educational video lessons by topic.</p></div></div><div class="card" style="margin-bottom:15px"><input id="videoSearch" placeholder="Search a topic, e.g. chemical reactions" oninput="renderVideos()"></div><div class="grid" id="videoGrid"></div><p class="muted" style="font-size:12px">Video links open YouTube search results. Study AI does not host or own these videos.</p></section>
+
+<section class="page" id="notes"><div class="section-head"><div><h3>📝 Smart Notes</h3><p class="muted">Create and save your own revision notes on this device.</p></div></div><div class="card"><input id="noteTitle" placeholder="Note title"><textarea id="noteBody" rows="6" style="width:100%;margin:12px 0;background:#101027;color:white;border:1px solid var(--line);border-radius:10px;padding:12px" placeholder="Write your notes here..."></textarea><button class="primary" onclick="saveNote()">Save note</button></div><div class="section-head"><h3>Saved notes</h3></div><div id="notesList" class="grid"></div></section>
+
+<section class="page" id="quiz"><div class="section-head"><div><h3>🧠 Quick Practice Quiz</h3><p class="muted">Try a question and check your understanding.</p></div></div><div class="card" id="quizCard"><div class="eyebrow">QUESTION 1 OF 5</div><h3 id="quizQuestion">Which gas do plants absorb during photosynthesis?</h3><div id="quizOptions"></div><p id="quizFeedback" class="muted"></p><button class="primary" id="nextQuiz" onclick="nextQuestion()" style="display:none">Next question →</button></div></section>
+
+<section class="page" id="progress"><div class="section-head"><h3>📊 My Learning Progress</h3></div><div class="stats"><div class="stat"><small>Quiz attempts</small><strong id="progressQuizzes">0</strong></div><div class="stat"><small>Points earned</small><strong id="progressPoints">0</strong></div><div class="stat"><small>Notes saved</small><strong id="progressNotes">0</strong></div><div class="stat"><small>Learning status</small><strong style="font-size:18px">Growing 🌱</strong></div></div><div class="card"><b>Your learning journey</b><p class="muted">Complete quizzes and write revision notes to build your learning record.</p><div class="progress"><span id="progressBar"></span></div><small class="muted" id="progressText">0 learning points earned</small></div></section>
+
+<section class="page" id="profile"><div class="section-head"><h3>👤 Student Profile</h3></div><div class="card" style="max-width:560px"><div class="avatar" style="width:65px;height:65px;font-size:25px;margin-bottom:15px">N</div><label class="muted">Your name</label><input id="nameInput" placeholder="Enter your name" style="margin:7px 0 15px"><label class="muted">Class / Grade</label><select id="gradeInput" style="margin:7px 0 15px"><option>Class 10</option><option>Class 9</option><option>Class 8</option><option>Class 7</option><option>Other</option></select><button class="primary" onclick="saveProfile()">Save profile</button></div><p class="muted" style="font-size:12px">Your profile and study activity are stored locally in this browser.</p></section>
+<footer style="text-align:center;color:#777694;font-size:11px;margin-top:40px">© 2026 Study AI · Created by Mr. Nirmit Pohane · Independent student learning project</footer>
+</main></div><div class="toast" id="toast"></div>
+<script>
+const subjects=[
+ {name:"Mathematics",icon:"📐",desc:"Formulas, examples and problem solving"},
+ {name:"Science",icon:"🔬",desc:"Physics, chemistry and biology"},
+ {name:"English",icon:"📖",desc:"Grammar, writing and literature"},
+ {name:"Marathi",icon:"🌺",desc:"व्याकरण, लेखन आणि साहित्य"},
+ {name:"Hindi",icon:"🪷",desc:"व्याकरण और साहित्य"},
+ {name:"Sanskrit",icon:"🕉️",desc:"Grammar, meanings and अभ्यास"},
+ {name:"Social Science",icon:"🌍",desc:"History, geography and civics"}
+];
+const videos=[
+ ["Mathematics","Algebra and equations","📐"],["Science","Photosynthesis explained","🌱"],["Science","Electricity and circuits","⚡"],["English","English grammar basics","📖"],["Mathematics","Geometry fundamentals","📏"],["Science","Chemical reactions","🧪"],["Social Science","Indian history lessons","🏛️"],["Sanskrit","Sanskrit grammar lessons","🕉️"],["Marathi","Marathi grammar lessons","🌺"]
+];
+const $=id=>document.getElementById(id);
+let stats=JSON.parse(localStorage.getItem("studyai_stats")||'{"quizzes":0,"points":0}');
+let notes=JSON.parse(localStorage.getItem("studyai_notes")||"[]");
+let profile=JSON.parse(localStorage.getItem("studyai_profile")||'{"name":"Student","grade":"Class 10"}');
+function persist(){localStorage.setItem("studyai_stats",JSON.stringify(stats));localStorage.setItem("studyai_notes",JSON.stringify(notes))}
+function toast(t){$("toast").textContent=t;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2300)}
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$(p).classList.add("active");document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===p));const titles={home:"Welcome back, "+profile.name+"! 👋",tutor:"AI Personal Tutor",subjects:"Explore Subjects",videos:"Video Learning",notes:"Your Smart Notes",quiz:"Practice and Improve",progress:"Your Progress",profile:"Your Profile"};$("pageTitle").textContent=titles[p]||"Study AI";if(p==="progress")updateStats();if(p==="notes")renderNotes();window.scrollTo(0,0)}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function subjectCard(s){return `<div class="card subject" onclick="subjectSelected('${s.name}')"><div class="emoji">${s.icon}</div><h3>${s.name}</h3><p>${s.desc}</p></div>`}
+$("homeSubjects").innerHTML=subjects.slice(0,3).map(subjectCard).join("");$("allSubjects").innerHTML=subjects.map(subjectCard).join("");
+function subjectSelected(s){showPage("tutor");ask("Help me start learning "+s+" for "+profile.grade+". Give me a beginner-friendly topic and explain it simply.")}
+function ask(q){$("question").value=q;sendQuestion()}
+function addMessage(t,who){const d=document.createElement("div");d.className="msg "+who;d.textContent=t;$("messages").appendChild(d);$("messages").scrollTop=$("messages").scrollHeight}
+function tutorAnswer(q){
+ const x=q.toLowerCase();
+ if(x.includes("photosynthesis"))return "Photosynthesis is the process by which green plants prepare their food using sunlight. 🌱\n\nStep 1: Roots absorb water from the soil.\nStep 2: Leaves take in carbon dioxide from the air.\nStep 3: Chlorophyll captures sunlight.\nStep 4: The plant makes glucose and releases oxygen.\n\nRemember: sunlight + water + carbon dioxide → glucose + oxygen.\n\nExample: A plant kept in sunlight can make food in its green leaves.";
+ if(x.includes("pythagoras"))return "Pythagoras' theorem is used in a right-angled triangle.\n\nStatement: (Hypotenuse)² = (Base)² + (Perpendicular)².\n\nExample: If the two shorter sides are 3 cm and 4 cm, then hypotenuse² = 3² + 4² = 9 + 16 = 25. So the hypotenuse is 5 cm.\n\nTry drawing a right-angled triangle and label its longest side as the hypotenuse.";
+ if(x.includes("newton"))return "Newton's three laws of motion:\n\n1. First law (Inertia): An object remains at rest or in uniform motion unless an external unbalanced force acts on it.\n2. Second law: Force depends on mass and acceleration. Formula: F = m × a.\n3. Third law: Every action has an equal and opposite reaction.\n\nExample: When you jump, your feet push the ground down and the ground pushes you upward.";
+ if(x.includes("concave")||x.includes("convex")||x.includes("lens"))return "A convex lens is thicker at the centre and thinner at the edges. It generally converges parallel rays of light.\n\nA concave lens is thinner at the centre and thicker at the edges. It diverges parallel rays of light.\n\nMemory tip: CONVEX = CONVERGES; CONCAVE = DIVERGES.";
+ if(x.includes("hello")||x.includes("hi "))return "Hello! 😊 What subject are you studying today? Ask me a question from Mathematics, Science, English or another subject.";
+ return "Good question! Here is a simple way to study it:\n\n1. First, identify the main concept and its definition.\n2. Break the topic into smaller steps.\n3. Learn one example and then solve a similar question yourself.\n4. Revise the key points in your own words.\n\nThis is the demonstration tutor, so it does not yet generate live answers for every topic. Connect a secure AI service to enable full question answering. For exact school answers, share your textbook question or a clear photo.";
+}
+function sendQuestion(){const q=$("question").value.trim();if(!q)return;addMessage(q,"user");$("question").value="";setTimeout(()=>addMessage(tutorAnswer(q),"bot"),350)}
+function renderVideos(){const q=($("videoSearch").value||"").toLowerCase();$("videoGrid").innerHTML=videos.filter(v=>v.join(" ").toLowerCase().includes(q)).map(v=>`<div class="card video-card"><div class="video-thumb">${v[2]}<span>▶</span></div><div class="inside"><b>${v[1]}</b><p>${v[0]} · Learning video search</p><a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query=${encodeURIComponent(v[0]+" "+v[1]+" for students")}">Find videos on YouTube ↗</a></div></div>`).join("")||'<p class="muted">No matching lessons found.</p>'}
+function saveNote(){const title=$("noteTitle").value.trim(),body=$("noteBody").value.trim();if(!title||!body){toast("Enter a title and note first.");return}notes.unshift({title,body,date:new Date().toLocaleDateString()});persist();$("noteTitle").value="";$("noteBody").value="";renderNotes();updateStats();toast("Note saved on this device!")}
+function renderNotes(){$("notesList").innerHTML=notes.map((n,i)=>`<div class="card"><b>${escapeHTML(n.title)}</b><p class="muted" style="font-size:11px">${n.date}</p><p style="white-space:pre-wrap;font-size:13px">${escapeHTML(n.body)}</p><button class="secondary" onclick="deleteNote(${i})">Delete</button></div>`).join("")||'<p class="muted">No notes yet. Create your first revision note above.</p>'}
+function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function deleteNote(i){notes.splice(i,1);persist();renderNotes();updateStats()}
+const questions=[
+ {q:"Which gas do plants absorb during photosynthesis?",o:["Oxygen","Carbon dioxide","Nitrogen","Hydrogen"],a:1,e:"Plants absorb carbon dioxide and use it during photosynthesis."},
+ {q:"What is the SI unit of force?",o:["Joule","Watt","Newton","Pascal"],a:2,e:"The SI unit of force is the newton (N)."},
+ {q:"What is 12 × 8?",o:["86","96","108","88"],a:1,e:"12 × 8 = 96."},
+ {q:"Which lens is a diverging lens?",o:["Convex lens","Concave lens","Both","Neither"],a:1,e:"A concave lens diverges parallel rays of light."},
+ {q:"Which part of speech names a person, place, animal or thing?",o:["Verb","Adjective","Noun","Adverb"],a:2,e:"A noun is the naming word."}
+];let qi=0,answered=false;
+function renderQuiz(){let q=questions[qi];$("quizQuestion").textContent=q.q;$("quizCard").querySelector(".eyebrow").textContent=`QUESTION ${qi+1} OF ${questions.length}`;$("quizOptions").innerHTML=q.o.map((o,i)=>`<button class="quiz-option" onclick="answerQuiz(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join("");$("quizFeedback").textContent="";$("nextQuiz").style.display="none";answered=false}
+function answerQuiz(i){if(answered)return;answered=true;let q=questions[qi],ok=i===q.a;if(ok){stats.points+=10;toast("+10 learning points!")}stats.quizzes++;persist();$("quizFeedback").textContent=(ok?"✅ Correct! ":"❌ Not quite. Correct answer: "+q.o[q.a]+". ")+q.e;$("nextQuiz").style.display="inline-block";document.querySelectorAll(".quiz-option").forEach((b,j)=>{b.disabled=true;if(j===q.a)b.style.borderColor="var(--green)"})}
+function nextQuestion(){qi=(qi+1)%questions.length;renderQuiz();updateStats()}
+function updateStats(){$("quizCount").textContent=stats.quizzes;$("points").textContent=stats.points;$("progressQuizzes").textContent=stats.quizzes;$("progressPoints").textContent=stats.points;$("progressNotes").textContent=notes.length;$("progressBar").style.width=Math.min(100,stats.points/2)+"%";$("progressText").textContent=stats.points+" learning points earned"}
+function saveProfile(){profile.name=$("nameInput").value.trim()||"Student";profile.grade=$("gradeInput").value;localStorage.setItem("studyai_profile",JSON.stringify(profile));$("profileName").textContent=profile.name;$("pageTitle").textContent="Your Profile";toast("Profile saved!");}
+function init(){renderVideos();renderNotes();renderQuiz();updateStats();$("profileName").textContent=profile.name;$("nameInput").value=profile.name;$("gradeInput").value=profile.grade}
+init();
+</script>
+</body>
+</html>
